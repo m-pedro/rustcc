@@ -1,0 +1,6 @@
+/target
+*.s
+*.o
+*.out
+/bin
+.DS_Store

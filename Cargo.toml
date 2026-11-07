@@ -1,0 +1,10 @@
+[package]
+name = "rustcc"
+version = "0.1.0"
+edition = "2021"
+description = "A hand-written C compiler in Rust targeting Three-Address IR, aarch64 (Apple Silicon), and x86_64 assembly"
+
+[dependencies]
+
+[dev-dependencies]
+tempfile = "3.10"
