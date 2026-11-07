@@ -1,6 +1,6 @@
 # rustcc
 
-A hand-written C subset compiler written from scratch in Rust with **zero external parser dependencies**. Compiles C source code through a 6-stage pipeline: Lexer -> Pratt/Recursive-Descent AST Parser -> Scoped Semantic Type Checker -> Three-Address Code (TAC) IR -> Constant-Folding Optimizer -> Native **Apple Silicon (`aarch64`)** and **`x86_64`** Assembly Codegen.
+A hand-written C subset compiler written from scratch in Rust with **zero external parser dependencies**. Compiles C source code through a 6-stage pipeline: Lexer -> Pratt/Recursive-Descent AST Parser -> Scoped Semantic Type Checker -> Three-Address Code (TAC) IR -> Constant-Folding Optimizer -> Native Apple Silicon (`aarch64`) and `x86_64` Assembly Codegen.
 
 ## 15-Day Incremental Engineering Roadmap (Month 3, Days 61–75)
 
