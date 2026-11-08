@@ -239,17 +239,20 @@ impl TypeChecker {
                     },
                 }
             }
-            Expr::Binary { lhs, rhs, .. } => {
+            Expr::Binary { op, lhs, rhs } => {
                 let lt = self.check_expr(lhs)?;
                 let rt = self.check_expr(rhs)?;
-                if lt != Type::Int || rt != Type::Int {
-                    return Err(CompileError::new(
+                match (&lt, &rt, op) {
+                    (Type::Int, Type::Int, _) => Ok(Type::Int),
+                    (Type::Pointer(_), Type::Int, crate::ast::BinOp::Add | crate::ast::BinOp::Sub) => Ok(lt),
+                    (Type::Int, Type::Pointer(_), crate::ast::BinOp::Add) => Ok(rt),
+                    (Type::Pointer(a), Type::Pointer(b), crate::ast::BinOp::Eq | crate::ast::BinOp::Ne) if a == b => Ok(Type::Int),
+                    _ => Err(CompileError::new(
                         "sema",
-                        format!("binary arithmetic requires int operands, got {} and {}", lt, rt),
+                        format!("invalid binary operands {} and {} for {:?}", lt, rt, op),
                         Span { line: 1, col: 1 },
-                    ));
+                    )),
                 }
-                Ok(Type::Int)
             }
             Expr::Call { callee, args } => {
                 let sig = self.functions.get(callee).cloned().ok_or_else(|| {
