@@ -88,19 +88,21 @@ Run locally via `cargo bench --bench compiler_bench -- --quick`:
 ### 1. Compile and Run a Native C Program on macOS / Linux
 
 ```bash
+printf 'int fib(int n) { if (n <= 1) return n; return fib(n - 1) + fib(n - 2); }\nint main(void) { return fib(10); }\n' > fib.c
 cargo run -- fib.c -o fib_bin
 ./fib_bin
 echo "Exit code: $?"
+rm -f fib.c fib_bin
 ```
 
 ### 2. Inspect Intermediate Representations
 
 ```bash
-cargo run -- fib.c --dump-tokens
-cargo run -- fib.c --dump-ast
-cargo run -- fib.c --dump-ir
-cargo run -- fib.c -S --arch aarch64 -o fib_arm64.s
-cargo run -- fib.c -S --arch x86_64 -o fib_x86.s
+cargo run -- examples/fib.c --dump-tokens
+cargo run -- examples/fib.c --dump-ast
+cargo run -- examples/fib.c --dump-ir
+cargo run -- examples/fib.c -S --arch aarch64 -o fib_arm64.s
+cargo run -- examples/fib.c -S --arch x86_64 -o fib_x86.s
 ```
 
 ### 3. Run the Full Test & Native Execution Suite
